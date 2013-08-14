@@ -3,6 +3,12 @@ GitHub Locales
 Unofficial locales support for [GitHub](https://github.com). The implementation and translation quality are very limited for now.
 
 
+Screenshot
+----------
+GitHub in 正體中文 (Traditional Chinese).
+![Screenshot of GitHub in Traditional]((https://raw.github.com/dannvix/GitHub-Locales/master/docs/GitHub_zh-TW.png))
+
+
 License
 -------
 Licensed under the [MIT license](http://opensource.org/licenses/mit-license.php).
