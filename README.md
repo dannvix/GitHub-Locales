@@ -6,7 +6,7 @@ Unofficial locales support for [GitHub](https://github.com). The implementation 
 Screenshot
 ----------
 GitHub in 正體中文 (Traditional Chinese).
-![Screenshot of GitHub in Traditional]((https://raw.github.com/dannvix/GitHub-Locales/master/docs/GitHub_zh-TW.png))
+![Screenshot of GitHub in Traditional](https://raw.github.com/dannvix/GitHub-Locales/master/docs/GitHub_zh-TW.png)
 
 
 License
