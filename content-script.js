@@ -30,7 +30,7 @@ var GitHubLocales = function(locale) {
 
       /* navigation menubar */
       $("ul.dashboard-tabs > li > a[href='/']").text("動態消息"); /* News Feed */
-      $("ul.dashboard-tabs > li > a[href*=pulls]").text("同步請求"); /* Pull Requests */
+      $("ul.dashboard-tabs > li > a[href*=pulls]").text("收用請求"); /* Pull Requests */
       $("ul.dashboard-tabs > li > a[href*=issues]").text("議題列表"); /* Issues */
       $("ul.dashboard-tabs > li > a[href*=stars]").text("收藏列表"); /* Stars */
 
@@ -75,7 +75,7 @@ var GitHubLocales = function(locale) {
         /* repository sidebar menu */
         $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Code] span.full-word").text("程式碼"); /* Code */
         $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Issues] span.full-word").text("議題"); /* Issues */
-        $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pull Requests'] span.full-word").text("同步請求"); /* Pull Request */
+        $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pull Requests'] span.full-word").text("收用請求"); /* Pull Request */
         $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pulse'] span.full-word").text("專案動態"); /* Pulse */
         $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Graphs'] span.full-word").text("統計圖表"); /* Graphs */
         $("div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Network'] span.full-word").text("分支網路"); /* Network */
