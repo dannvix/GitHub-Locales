@@ -110,10 +110,10 @@ var GitHubLocales = function(locale) {
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Settings])", "original-title", "專案設定"], /* Settings */
       ],
 
-      /* repository issues, e.g. https://github.com/dannvix/GitHub-Locales/issues */
+      /* repository issues overview, e.g. https://github.com/dannvix/GitHub-Locales/issues */
       "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+\/issues": [
         /* tab navigation */
-        ["div#issues_next > div.tabnav a[href$=issues]", "", "議題一覽"], /* Browse Issues */
+        ["div#issues_next > div.tabnav a[href$=issues]", "", "議題總覽"], /* Browse Issues */
         ["div#issues_next > div.tabnav a[href$=milestones]", "", "里程碑"], /* Milestones */
         ["div#issues_next div.tabnav a[href*=new]", "", "新建議題"], /* New Issue */
 
@@ -130,6 +130,7 @@ var GitHubLocales = function(locale) {
         ["div#issues_next div.issues-list-options a[href*=closed]:first", "func", function(el){el.text(parseInt(el.text()) + " 已結案")}], /* {closed_count} Closed */
 
         /* issue labels */
+        ["span[data-name=bug]", "", "缺失"], /* bug */
         ["span[data-name=enhancement]", "", "改進"], /* enhancement */
         ["span[data-name=duplicate]", "", "重覆回報"], /* duplicate */
         ["span[data-name=invalid]", "", "無效"], /* invalid */
@@ -137,6 +138,7 @@ var GitHubLocales = function(locale) {
         ["span[data-name=wontfix]", "", "不會處理"], /* wontfix */
 
         /* filter lists */
+        ["div#issues_next ul.filter-list a[data-label=bug] span.name", "", "缺失"], /* bug */
         ["div#issues_next ul.filter-list a[data-label=enhancement] span.name", "", "改進"], /* enhancement */
         ["div#issues_next ul.filter-list a[data-label=duplicate] span.name", "", "重覆回報"], /* duplicate */
         ["div#issues_next ul.filter-list a[data-label=invalid] span.name", "", "無效"], /* invalid */
@@ -149,7 +151,36 @@ var GitHubLocales = function(locale) {
         /* issues meta */
         ["div#issues_next ul.issue-list-group ul.list-group-item-meta li:first-child", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("time")[0].outerHTML + "由 " + el.find("a")[0].outerHTML + " 建立")}], /* Open by {user_id} {relative_time} ago */
         ["div#issues_next ul.issue-list-group ul.list-group-item-meta li > span.octicon-comment-discussion + a", "func", function(el){el.text(parseInt(el.text()) + " 則討論")}], /* {comment_count} Comments */
-      ]
+      ],
+
+      /* new issue, e.g. https://github.com/dannvix/GitHub-Locales/issues/new */
+      "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+\/issues\/new[\/]?": [
+        /* new issue button */
+        ["div#issues_next div.tabnav div.tabnav-right a", "", "新建議題"], /* New Issues */
+
+        /* form */
+        ["div#issues_next > form#new_issue input#issue_title", "placeholder", "標題"], /* Title */
+        ["div#issues_next div.assignee > span.text:has(a)", "func", function(el){el.html("將指派給 " + el.find("a")[0].outerHTML)}], /* {user_id} will be assigned */
+        ["div#issues_next div.assignee > span.text:not(:has(a))", "", "目前沒有人被指派"], /* No one will be assigned */
+        ["div#issues_next form#new_issue div.assignee span.select-menu-title", "", "指派某人負責這個議題"], /* Assign someone to this issue */
+        ["div#issues_next form#new_issue div.assignee div.select-menu-text-filter input#assignee-filter-field", "placeholder", "搜尋使用者"], /* Filter people */
+        ["div#issues_next form#new_issue div.assignee div.js-clear-assignee > div.select-menu-item-text", "", "取消指派"], /* Clear assignee */
+        ["div#issues_next form#new_issue div.comment-form-head a.write-tab", "", "撰寫內文"], /* Write */
+        ["div#issues_next form#new_issue div.comment-form-head a.preview-tab", "", "預覽議題"], /* Preview */
+        ["div#issues_next form#new_issue div.comment-form-head span.tabnav-right > span.text", "func", function(el){el.html("內文格式遵循 " + el.find("a")[0].outerHTML + " 語法")}], /* Comments are parsed with GitHub Flavored Markdown */
+        ["div#issues_next form#new_issue div.write-content textarea", "placeholder", "請輸入內文"], /* Leave a commnet */
+        ["div#issues_next form#new_issue div.write-content p.drag-and-drop span.default", "func", function(el){el.find("a").text("選擇檔案"); el.html("您可以透過拖曳、" + el.find("input")[0].outerHTML + el.find("a")[0].outerHTML + "、或從剪貼簿貼上來插入圖片。")}], /* Attach images by dragging & dropping,  selecting them, or pasting from the clipboard. */
+        ["div#issues_next form#new_issue div.form-actions > button", "", "提交此議題"], /* Submit new issue */
+
+        /* right sidebar (labels) */
+        ["div#issues_next form#new_issue div.sidebar > h3", "","加入標籤"], /* Add Labels */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=bug] span.name", "", "缺失"], /* bug */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=duplicate] span.name", "", "重覆回報"], /* duplicate */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=enhancement] span.name", "", "改進"], /* enhancement */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=invalid] span.name", "", "無效"], /* invalid */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=question] span.name", "", "釋疑"], /* question */
+        ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=wontfix] span.name", "", "不會處理"], /* wontfix */
+      ],
     }
   };
 
@@ -209,7 +240,6 @@ var appendFooter = function(locale) {
 
 
 var main = function() {
-  console.log(moment());
   appendFooter("zh-TW");
   GitHubLocales("zh-TW");
   registerObserver(function(){GitHubLocales("zh-TW");});
