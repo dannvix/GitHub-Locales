@@ -270,22 +270,28 @@ var GitHubLocales = function(locale) {
     if (window.location.href.match(new RegExp(scope))) {
       $.each(rules, function(idx, rule) {
         var el = $(rule[0]);
-        if (el.length) {
-          switch(rule[1]) {
-          /* text replacement */
-          case "":
-            el.text(rule[2]);
-            break;
-          /* function execution */
-          case "func":
-            $.each(el, function(idx, element) {
-              rule[2]($(element));
-            });
-            break;
-          /* attribute replacement */
-          default:
-            el.attr(rule[1], rule[2]);
+        try {
+          if (el.length) {
+            switch(rule[1]) {
+            /* text replacement */
+            case "":
+              el.text(rule[2]);
+              break;
+            /* function execution */
+            case "func":
+              $.each(el, function(idx, element) {
+                rule[2]($(element));
+              });
+              break;
+            /* attribute replacement */
+            default:
+              el.attr(rule[1], rule[2]);
+            }
           }
+        }
+        catch (err) {
+          /* suppress all errors during patch */
+          console.log("[GitHub Locales] " + err.stack);
         }
       });
     }
