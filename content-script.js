@@ -38,19 +38,27 @@ var GitHubLocales = function(locale) {
 
         /* repository title bar */
         ["h1.entry-title.public > span.repo-label > span", "", "公開專案"], /* Public */
-        ["h1.entry-title span.fork-flag > span.text", "func", function(el){el.html("分支自 " + $("h1.entry-title span.fork-flag > span.text > a")[0].outerHTML)}], /* Forked from {repo_name} */
-        ["ul.pagehead-actions span.octicon-eye-watch", "func", function(el){el.parent().html($("ul.pagehead-actions span.octicon-eye-watch")[0].outerHTML + " 關注")}], /* Watch */
-        ["ul.pagehead-actions span.octicon-eye-unwatch", "func", function(el){el.parent().html($("ul.pagehead-actions span.octicon-eye-unwatch")[0].outerHTML + " 取消關注")}], /* Unwatch */
+        ["h1.entry-title span.fork-flag > span.text", "func", function(el){el.html("分支自 " + el.find("a")[0].outerHTML)}], /* Forked from {repo_name} */
+        ["ul.pagehead-actions span.octicon-eye-watch", "func", function(el){el.parent().html(el[0].outerHTML + " 關注")}], /* Watch */
+        ["ul.pagehead-actions span.octicon-eye-unwatch", "func", function(el){el.parent().html(el[0].outerHTML + " 取消關注")}], /* Unwatch */
+        ["ul.pagehead-actions form.js-social-container span.select-menu-title", "", "通知選項"], /* Notification status */
+        ["ul.pagehead-actions form.js-social-container input[value*=included] + h4", "", "沒有關注"], /* Not watching */
+        ["ul.pagehead-actions form.js-social-container input[value*=included] ~ span.description", "", "當您參與討論或被提及時才會收到通知。"], /* You only receive notifications for discussions in which you participate or are @mentioned. */
+        ["ul.pagehead-actions form.js-social-container input[value*=subscribed] + h4", "", "關注中"], /* Watching */
+        ["ul.pagehead-actions form.js-social-container input[value*=subscribed] ~ span.description", "", "您會收到這個專案所有討論的通知。"], /* You receive notifications for all discussions in this repository. */
+        ["ul.pagehead-actions form.js-social-container input[value*=ignore] + h4", "", "完全忽略"], /* Ignoring */
         ["ul.pagehead-actions span.octicon-star + span.text", "", "收藏"], /* Star */
+        ["ul.pagehead-actions form.js-social-container input[value*=ignore] ~ span.description", "", "您將不會收到這個專案的任何通知。"], /* You do not receive any notifications for discussions in this repository. */
         ["ul.pagehead-actions span.octicon-git-branch-create + span.text", "", "建立分支"], /* Fork */
+
       ],
       
       /* dashboard page */
       "^http[s]?:\/\/github.com[\/]+$": [
         /* right sidebar */
         ["div.dashboard-sidebar h3.box-title:first", "", "您參與的專案"], /* Repositories you contribute to */
-        ["div.dashboard-sidebar h3.box-title:last", "func", function(el){el.html("您的專案 " + $("div.dashboard-sidebar h3.box-title:last span.box-title-count")[0].outerHTML)}], /* Your repositories */
-        ["div.dashboard-sidebar div.box-header a[href*=new]", "func", function(el){el.html($("div.dashboard-sidebar div.box-header a[href*=new] > span")[0].outerHTML + " 新建專案")}], /* New repository */
+        ["div.dashboard-sidebar h3.box-title:last", "func", function(el){el.html("您的專案 " + el.find("span.box-title-count")[0].outerHTML)}], /* Your repositories */
+        ["div.dashboard-sidebar div.box-header a[href*=new]", "func", function(el){el.html(el.find(" > span")[0].outerHTML + " 新建專案")}], /* New repository */
       ],
       
       /* issues dashboard */
@@ -79,11 +87,27 @@ var GitHubLocales = function(locale) {
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Code] span.full-word", "", "程式碼"], /* Code */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Issues] span.full-word", "" ,"議題"], /* Issues */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pull Requests'] span.full-word", "", "收用請求"], /* Pull Request */
-        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pulse'] span.full-word", "", "專案脈動"], /* Pulse */
-        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Graphs'] span.full-word", "", "統計圖表"], /* Graphs */
-        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Network'] span.full-word", "","分支網路"], /* Network */
-        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Settings'] span.full-word", "","專案設定"], /* Settings */
+        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Pulse] span.full-word", "", "專案脈動"], /* Pulse */
+        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Graphs] span.full-word", "", "統計圖表"], /* Graphs */
+        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Network] span.full-word", "","分支網路"], /* Network */
+        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Settings] span.full-word", "","專案設定"], /* Settings */
         ["div.repository-sidebar div.only-with-full-nav a[href*=zip]", "func", function(el){el.html($("div.repository-sidebar div.only-with-full-nav a[href*=zip] > span")[0].outerHTML + " 打包下載 ZIP 檔")}], /* Download ZIP */
+
+        /* repository file viewer */
+        ["div.repo-container div.file-navigation span.octicon-git-branch + i", "", "目前分支："], /* Branch: */
+        ["div.repo-container div.file-navigation > div.breadcrumb form", "original-title", "在此新建檔案"] /* Create a new file here */
+      ],
+
+      /* respository subordinate pages, e.g. issues, pulse… */
+      "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+/[^\/]+": [
+        /* right sidebar icon navigations */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Code])", "original-title", "程式碼"], /* Code */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Issues])", "original-title", "議題"], /* Issues */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label='Pull Requests'])", "original-title", "收用請求"], /* Pull Requests */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Pulse])", "original-title", "專案脈動"], /* Pulse */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Graphs])", "original-title", "統計圖表"], /* Graphs */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Network])", "original-title", "分支網路"], /* Network */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label=Settings])", "original-title", "專案設定"], /* Settings */
       ],
 
       /* repository issues, e.g. https://github.com/dannvix/GitHub-Locales/issues */
@@ -100,9 +124,37 @@ var GitHubLocales = function(locale) {
         ["div#issues_next ul.filter-list a[href*=assigned]:first", "func", function(el){el.html($("div#issues_next ul.filter-list a[href*=assigned]:first span.count")[0].outerHTML + " 指派給您的")}], /* Assigned to you */
         ["div#issues_next ul.filter-list a[href*=created_by]:first", "func", function(el){el.html($("div#issues_next ul.filter-list a[href*=created_by]:first span.count")[0].outerHTML + " 您所建立的")}], /* Created by you */
         ["div#issues_next ul.filter-list a[href*=mentioned]:first", "func", function(el){el.html($("div#issues_next ul.filter-list a[href*=mentioned]:first span.count")[0].outerHTML + " 提及您的")}], /* Mentioned you */
+
+        /* list options */
+        ["div#issues_next div.issues-list-options a[href*=open]:first", "func", function(el){el.text(parseInt(el.text()) + " 進行中")}], /* {open_count} Open */
+        ["div#issues_next div.issues-list-options a[href*=closed]:first", "func", function(el){el.text(parseInt(el.text()) + " 已結案")}], /* {closed_count} Closed */
+
+        /* issue labels */
+        ["span[data-name=enhancement]", "", "改進"], /* enhancement */
+        ["span[data-name=duplicate]", "", "重覆回報"], /* duplicate */
+        ["span[data-name=invalid]", "", "無效"], /* invalid */
+        ["span[data-name=question]", "", "釋疑"], /* question */
+        ["span[data-name=wontfix]", "", "不會處理"], /* wontfix */
+
+        /* filter lists */
+        ["div#issues_next ul.filter-list a[data-label=enhancement] span.name", "", "改進"], /* enhancement */
+        ["div#issues_next ul.filter-list a[data-label=duplicate] span.name", "", "重覆回報"], /* duplicate */
+        ["div#issues_next ul.filter-list a[data-label=invalid] span.name", "", "無效"], /* invalid */
+        ["div#issues_next ul.filter-list a[data-label=question] span.name", "", "釋疑"], /* question */
+        ["div#issues_next ul.filter-list a[data-label=wontfix] span.name", "", "不會處理"], /* wontfix */
+        ["div#issues_next div.js-editable-labels-container > a", "", "管理標籤"], /* Manage Labels */
+        ["div#issues_next div.js-editable-labels-container > div > h4.new-label-form-title", "", "新建標籤"], /* New label */
+        ["div#issues_next div.js-editable-labels-container > div > form > input[type=text]", "placeholder", "新標籤名稱"], /* New label name */
+
+        /* issues meta */
+        ["div#issues_next ul.issue-list-group ul.list-group-item-meta li:first-child", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("time")[0].outerHTML + "由 " + el.find("a")[0].outerHTML + " 建立")}], /* Open by {user_id} {relative_time} ago */
+        ["div#issues_next ul.issue-list-group ul.list-group-item-meta li > span.octicon-comment-discussion + a", "func", function(el){el.text(parseInt(el.text()) + " 則討論")}], /* {comment_count} Comments */
       ]
     }
   };
+
+  /* set Moment.js locale */
+  moment.lang(locale.toLowerCase());
 
   $.each(locales[locale], function(scope, rules) {
     if (window.location.href.match(new RegExp(scope))) {
@@ -116,7 +168,9 @@ var GitHubLocales = function(locale) {
             break;
           /* function execution */
           case "func":
-            rule[2](el);
+            $.each(el, function(idx, element) {
+              rule[2]($(element));
+            });
             break;
           /* attribute replacement */
           default:
@@ -155,6 +209,7 @@ var appendFooter = function(locale) {
 
 
 var main = function() {
+  console.log(moment());
   appendFooter("zh-TW");
   GitHubLocales("zh-TW");
   registerObserver(function(){GitHubLocales("zh-TW");});
