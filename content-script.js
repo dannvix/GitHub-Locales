@@ -32,7 +32,7 @@ var GitHubLocales = function(locale) {
 
         /* navigation menubar */
         ["ul.dashboard-tabs > li > a[href='/']", "", "動態消息"], /* News Feed */
-        ["ul.dashboard-tabs > li > a[href*=pulls]", "", "收用請求"], /* Pull Requests */
+        ["ul.dashboard-tabs > li > a[href*=pulls]", "", "收併請求"], /* Pull Requests */
         ["ul.dashboard-tabs > li > a[href*=issues]", "", "議題列表"], /* Issues */
         ["ul.dashboard-tabs > li > a[href*=stars]", "", "收藏列表"], /* Stars */
 
@@ -86,7 +86,7 @@ var GitHubLocales = function(locale) {
         /* repository sidebar menu */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Code] span.full-word", "", "程式碼"], /* Code */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Issues] span.full-word", "" ,"議題"], /* Issues */
-        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pull Requests'] span.full-word", "", "收用請求"], /* Pull Request */
+        ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title='Pull Requests'] span.full-word", "", "收併請求"], /* Pull Request */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Pulse] span.full-word", "", "專案脈動"], /* Pulse */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Graphs] span.full-word", "", "統計圖表"], /* Graphs */
         ["div.repository-sidebar div.repo-nav-contents ul.repo-menu li[original-title=Network] span.full-word", "","分支網路"], /* Network */
@@ -103,7 +103,7 @@ var GitHubLocales = function(locale) {
         /* right sidebar icon navigations */
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Code])", "original-title", "程式碼"], /* Code */
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Issues])", "original-title", "議題"], /* Issues */
-        ["div.repo-nav ul.repo-menu li:has(a[aria-label='Pull Requests'])", "original-title", "收用請求"], /* Pull Requests */
+        ["div.repo-nav ul.repo-menu li:has(a[aria-label='Pull Requests'])", "original-title", "收併請求"], /* Pull Requests */
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Pulse])", "original-title", "專案脈動"], /* Pulse */
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Graphs])", "original-title", "統計圖表"], /* Graphs */
         ["div.repo-nav ul.repo-menu li:has(a[aria-label=Network])", "original-title", "分支網路"], /* Network */
@@ -151,6 +151,9 @@ var GitHubLocales = function(locale) {
         /* issues meta */
         ["div#issues_next ul.issue-list-group ul.list-group-item-meta li:first-child", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("time")[0].outerHTML + "由 " + el.find("a")[0].outerHTML + " 建立")}], /* Open by {user_id} {relative_time} ago */
         ["div#issues_next ul.issue-list-group ul.list-group-item-meta li > span.octicon-comment-discussion + a", "func", function(el){el.text(parseInt(el.text()) + " 則討論")}], /* {comment_count} Comments */
+
+        /* no issue */
+        ["div.issues-list div.none > p", "func", function(el){el.find("a").text("立刻新增一個！"); el.html("目前沒有議題。" + el.find("a")[0].outerHTML)}], /* No issues to show. Create a new issue. */
       ],
 
       /* new issue, e.g. https://github.com/dannvix/GitHub-Locales/issues/new */
@@ -189,7 +192,7 @@ var GitHubLocales = function(locale) {
         ["div.pull-head div.pull-description span.pull-state > span.closed", "", "已結案"], /* Closed */
         ["div.pull-head div.pull-description span.pull-state > span.open", "", "進行中"], /* Open */
         ["div.pull-head div.pull-description span.pull-state:has(span.open,span.closed) + p", "func", function(el){el.html(el.find("a")[0].outerHTML + " 請求收併從 " + el.find("span.commit-ref")[1].outerHTML + " 的 " + el.text().match(/merge (\d+) commit/)[1] + " 個提交到 " + el.find("span.commit-ref")[0].outerHTML)}], /* {user_id} wants to merge {commit_count} commit into {to_branch} from {from_branch} */
-        // ["div.pull-head div.pull-description span.pull-state:has(span.merged) + p", "func", function(el){el.html(el.find("a")[0].outerHTML + " 在 " + el[0].childNodes[6].textContent.replace(/\n/g, "").replace(/\s+/g, " ").match(/^\s*(.*)\s*$/)[1] + " 從 " + el.find("span.commit-ref")[1].outerHTML + " 收併了 " + el.text().match(/merged (\d+) commit/)[1] + " 個提交到 " + el.find("span.commit-ref")[0].outerHTML)}], /* {user_id} merged {commit_count} commits into {to_branch} from {from_branch} {relative_time} ago */
+        ["div.pull-head div.pull-description span.pull-state:has(span.merged) + p", "func", function(el){el.html(el.find("a")[0].outerHTML + " 在 " + el[0].childNodes[6].textContent.replace(/\n/g, "").replace(/\s+/g, " ").match(/^\s*(.*)\s*$/)[1] + " 從 " + el.find("span.commit-ref")[1].outerHTML + " 收併了 " + el.text().match(/merged (\d+) commit/)[1] + " 個提交到 " + el.find("span.commit-ref")[0].outerHTML)}], /* {user_id} merged {commit_count} commits into {to_branch} from {from_branch} {relative_time} ago */
 
         /* back to issue list button */
         ["div#issues_next div.issue-head a#to_isssues_list", "", "返回議題列表"], /* Back to issue list */
@@ -232,6 +235,30 @@ var GitHubLocales = function(locale) {
         ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=invalid] span.name", "", "無效"], /* invalid */
         ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=question] span.name", "", "釋疑"], /* question */
         ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=wontfix] span.name", "", "不會處理"], /* wontfix */
+
+        /* comments */
+        ["div#discussion_bucket div.comment-header span.comment-header-action-text a[href*=comment]", "", "發表了評論"], /* commented */
+        ["div#discussion_bucket div.comment-header span.comment-header-action-text a[href*=commits]", "", "加入了提交"], /* added a commits */
+        ["div#discussion_bucket div.comment-header span.comment-header-action-text a[href*='ref-commit']", "", "在某個提交參考了此議題"], /* referenced this pull request from a commit */
+        ["div#discussion_bucket div.comment-header a.comment-header-date > time", "func", function(el){el.text(moment(el.attr("datetime")).fromNow())}], /* {relative_time} ago */
+        ["div#discussion_bucket div.action-bubble span.action > span.closed", "", "標示結案"], /* Closed */
+        ["div#discussion_bucket div.action-bubble span.action:has(span.closed) + div.bubble > p", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("strong")[0].outerHTML + " 在 " + el.find("time")[0].outerHTML + "將此議題標示為已結案")}], /* {user_id} closed the issue {relative_time} ago */
+        ["div#discussion_bucket div.action-bubble span.action > span.reopened", "", "重新開啟"], /* Reopened */
+        ["div#discussion_bucket div.action-bubble span.action:has(span.reopened) + div.bubble > p", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("strong")[0].outerHTML + " 在 " + el.find("time")[0].outerHTML + "重新開啟此議題")}], /* {user_id} reopened the issue {relative_time} ago */
+
+        /* update form */
+        ["div#discussion_bucket form.js-comment-update p.drag-and-drop span.default", "func", function(el){el.find("a").text("選擇檔案"); el.html("您可以透過拖曳、" + el.find("input")[0].outerHTML + el.find("a")[0].outerHTML + "、或從剪貼簿貼上來插入圖片。")}], /* Attach images by dragging & dropping,  selecting them, or pasting from the clipboard. */
+        ["div#discussion_bucket form.js-comment-update div.form-actions > a.danger", "", "取消"], /* Cancel */
+        ["div#discussion_bucket form.js-comment-update div.form-actions > button[type=submit]", "", "更新"], /* Update */
+
+        /* new comment form */
+        ["div#discussion_bucket form.js-new-comment-form a.write-tab", "", "撰寫"], /* Write */
+        ["div#discussion_bucket form.js-new-comment-form a.preview-tab", "", "預覽"], /* Preview */
+        ["div#discussion_bucket form.js-new-comment-form span.tabnav-right > span.text", "func", function(el){el.html("內文格式遵循 " + el.find("a")[0].outerHTML + " 語法")}], /* Comments are parsed with GitHub Flavored Markdown */
+        ["div#discussion_bucket form.js-new-comment-form textarea", "placeholder", "請輸入內文"], /* Leave a commnet */
+        ["div#discussion_bucket form.js-new-comment-form p.drag-and-drop span.default", "func", function(el){el.find("a").text("選擇檔案"); el.html("您可以透過拖曳、" + el.find("input")[0].outerHTML + el.find("a")[0].outerHTML + "、或從剪貼簿貼上來插入圖片。")}], /* Attach images by dragging & dropping,  selecting them, or pasting from the clipboard. */
+        ["div#discussion_bucket form.js-new-comment-form div.form-actions > button[name=comment_and_open]", "", "提交並重新開啟"], /* Reopen */
+        ["div#discussion_bucket form.js-new-comment-form div.form-actions > button.primary", "", "提交"], /* Submit */
       ]
     }
   };
