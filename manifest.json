@@ -18,6 +18,8 @@
       ],
       "js": [
         "jquery-2.0.3.min.js",
+        "moment-2.1.0.min.js",
+        "moment-lang-zh-tw.js",
         "content-script.js"
       ],
       "run_at": "document_idle",
