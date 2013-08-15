@@ -146,14 +146,16 @@ var registerObserver = function(callback) {
 };
 
 
-var appendFooter = function() {
-  $("div.site-footer").append('<div style="clear: both; text-align: center; margin-top: 50px;">非官方正體中文翻譯由 <a href="https://github.com/dannvix/GitHub-Locales">GitHub-Locales 專案</a> 提供</div>');
+var appendFooter = function(locale) {
+  var locales = {
+    "zh-TW": '非官方正體中文翻譯由 <a href="https://github.com/dannvix/GitHub-Locales">GitHub-Locales 專案</a> 提供',
+  };
+  $("div.site-footer").append('<div style="clear: both; text-align: center; margin-top: 50px;">' + locales[locale] + '</div>');
 };
 
 
 var main = function() {
-  appendFooter();
-
+  appendFooter("zh-TW");
   GitHubLocales("zh-TW");
   registerObserver(function(){GitHubLocales("zh-TW");});
 };
