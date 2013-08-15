@@ -154,13 +154,13 @@ var GitHubLocales = function(locale) {
       ],
 
       /* new issue, e.g. https://github.com/dannvix/GitHub-Locales/issues/new */
-      "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+\/issues\/new[\/]?": [
+      "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+\/issues\/new[^\/]?": [
         /* new issue button */
         ["div#issues_next div.tabnav div.tabnav-right a", "", "新建議題"], /* New Issues */
 
         /* form */
         ["div#issues_next > form#new_issue input#issue_title", "placeholder", "標題"], /* Title */
-        ["div#issues_next div.assignee > span.text:has(a)", "func", function(el){el.html("將指派給 " + el.find("a")[0].outerHTML)}], /* {user_id} will be assigned */
+        ["div#issues_next div.assignee > span.text:has(a)", "func", function(el){el.html("此議題指派給 " + el.find("a")[0].outerHTML)}], /* {user_id} will be assigned */
         ["div#issues_next div.assignee > span.text:not(:has(a))", "", "目前沒有人被指派"], /* No one will be assigned */
         ["div#issues_next form#new_issue div.assignee span.select-menu-title", "", "指派某人負責這個議題"], /* Assign someone to this issue */
         ["div#issues_next form#new_issue div.assignee div.select-menu-text-filter input#assignee-filter-field", "placeholder", "搜尋使用者"], /* Filter people */
@@ -181,6 +181,58 @@ var GitHubLocales = function(locale) {
         ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=question] span.name", "", "釋疑"], /* question */
         ["div#issues_next form#new_issue div.sidebar > ul.filter-list li[data-name=wontfix] span.name", "", "不會處理"], /* wontfix */
       ],
+
+      /* single issue or PR page, e.g. https://github.com/dannvix/GitHub-Locales/issues/23 */
+      "http[s]?:\/\/github.com\/[^\/]+\/[^\/]+\/(issues|pull)\/\\d+[\/]?": [
+        /* PR description */
+        ["div.pull-head div.pull-description span.pull-state > span.merged", "", "已收併"], /* Merged */
+        ["div.pull-head div.pull-description span.pull-state > span.closed", "", "已結案"], /* Closed */
+        ["div.pull-head div.pull-description span.pull-state > span.open", "", "進行中"], /* Open */
+        ["div.pull-head div.pull-description span.pull-state:has(span.open,span.closed) + p", "func", function(el){el.html(el.find("a")[0].outerHTML + " 請求收併從 " + el.find("span.commit-ref")[1].outerHTML + " 的 " + el.text().match(/merge (\d+) commit/)[1] + " 個提交到 " + el.find("span.commit-ref")[0].outerHTML)}], /* {user_id} wants to merge {commit_count} commit into {to_branch} from {from_branch} */
+        // ["div.pull-head div.pull-description span.pull-state:has(span.merged) + p", "func", function(el){el.html(el.find("a")[0].outerHTML + " 在 " + el[0].childNodes[6].textContent.replace(/\n/g, "").replace(/\s+/g, " ").match(/^\s*(.*)\s*$/)[1] + " 從 " + el.find("span.commit-ref")[1].outerHTML + " 收併了 " + el.text().match(/merged (\d+) commit/)[1] + " 個提交到 " + el.find("span.commit-ref")[0].outerHTML)}], /* {user_id} merged {commit_count} commits into {to_branch} from {from_branch} {relative_time} ago */
+
+        /* back to issue list button */
+        ["div#issues_next div.issue-head a#to_isssues_list", "", "返回議題列表"], /* Back to issue list */
+
+        /* PR tab navigation */
+        ["div.repo-container div.tabnav ul.tabnav-tabs a[data-container-id*=discussion]", "func", function(el){el.html(el.find("span")[0].outerHTML + " 討論")}], /* Discussion */
+        ["div.repo-container div.tabnav ul.tabnav-tabs a[data-container-id*=commits]", "func", function(el){el.html(el.find("span.octicon")[0].outerHTML + " 提交" + el.find("span.counter")[0].outerHTML)}], /* Commits */
+        ["div.repo-container div.tabnav ul.tabnav-tabs a[data-container-id*=files]", "func", function(el){el.html(el.find("span.octicon")[0].outerHTML + " 檔案變更" + el.find("span.counter")[0].outerHTML)}], /* Files Changed */
+
+        /* issue or PR viewer */
+        ["div#discussion_bucket span.discussion-topic-author", "func", function(el){el.find("time").text(moment(el.find("time").attr("datetime")).fromNow()); el.html(el.find("time")[0].outerHTML + "由 " + el.find("a")[0].outerHTML + " 建立")}], /* {user_id} opened this issue {relative_time} ago */
+        ["div#discussion_bucket div.assignee > span.text:has(a)", "func", function(el){el.html("此議題指派給 " + el.find("a")[0].outerHTML)}], /* {user_id} will be assigned */
+        ["div#discussion_bucket div.assignee > span.text:not(:has(a))", "", "目前沒有人被指派"], /* No one will be assigned */
+        ["div#discussion_bucket div#show_issue div.assignee span.select-menu-title", "", "指派某人負責這個議題"], /* Assign someone to this issue */
+        ["div#discussion_bucket div#show_issue div.assignee div.select-menu-text-filter input#assignee-filter-field", "placeholder", "搜尋使用者"], /* Filter people */
+        ["div#discussion_bucket div#show_issue div.assignee div.js-clear-assignee > div.select-menu-item-text", "", "取消指派"], /* Clear assignee */
+        ["div#discussion_bucket ul.comment-topic-actions a", "", "編輯"], /* Edit */
+        ["div#discussion_bucket div.comment-body p:first", "func", function(el){if(el.text() == "No description given."){el.text("目前沒有敘述。")}}], /* No description given. */
+        ["div#discussion_bucket div[class*=participation] a[rel=facebox]", "func", function(el){el.html(el.find("strong")[0].outerHTML + " 位參與者")}], /* {participants_count} participants */
+
+        /* right sidebar */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats span.state-indicator.merged", "", "已收併"], /* Merged */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats span.state-indicator.closed", "", "已結案"], /* Closed */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats span.state-indicator.open", "", "進行中"], /* Open */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats p:not(:has(span))", "func", function(el){el.html(el.find("strong")[0].outerHTML + " 則評論")}], /* comments */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats p:has(span.addition) > strong", "func", function(el){el.text(parseInt(el.text()) + " 行新增")}], /* additions */
+        ["div#discussion_bucket div.discussion-sidebar div.discussion-stats p:has(span.deletion) > strong", "func", function(el){el.text(parseInt(el.text()) + " 行刪除")}], /* deletions */
+        ["div#discussion_bucket div.discussion-labels div.label-manager > strong", "", "標籤"], /* Labels */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=bug]", "", "缺失"], /* bug */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=duplicate]", "", "重覆回報"], /* duplicate */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=enhancement]", "", "改進"], /* enhancement */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=invalid]", "", "無效"], /* invalid */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=question]", "", "釋疑"], /* question */
+        ["div#discussion_bucket div.discussion-labels ul.filter-list span[title=wontfix]", "", "不會處理"], /* wontfix */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal span.select-menu-title", "","加入標籤"], /* Add Labels */
+        ["div#discussion_bucket div.label-manager div.select-menu-text-filter input", "placeholder", "搜尋標籤"], /* Filter labels */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=bug] span.name", "", "缺失"], /* bug */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=duplicate] span.name", "", "重覆回報"], /* duplicate */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=enhancement] span.name", "", "改進"], /* enhancement */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=invalid] span.name", "", "無效"], /* invalid */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=question] span.name", "", "釋疑"], /* question */
+        ["div#discussion_bucket div.label-manager div.select-menu-modal div[data-name=wontfix] span.name", "", "不會處理"], /* wontfix */
+      ]
     }
   };
 
